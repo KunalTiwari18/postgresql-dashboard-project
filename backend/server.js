@@ -10,10 +10,13 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({ origin: "*", methods: ["GET", "POST"] }));
 app.use(express.json());
 
-// ✅ PostgreSQL Connection
+// ✅ PostgreSQL Connection (Render SSL Fix)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+  ssl: {
+    require: true,
+    rejectUnauthorized: false, // Fix for Render's SSL certs
+  },
 });
 
 // ✅ Test route
@@ -33,6 +36,7 @@ app.post("/run-query", async (req, res) => {
     const result = await pool.query(query);
     res.json(result.rows);
   } catch (error) {
+    console.error("❌ Query Error:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
