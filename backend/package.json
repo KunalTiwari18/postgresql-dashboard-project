@@ -1,11 +1,11 @@
 {
   "name": "postgres-backend",
   "version": "1.0.0",
-  "description": "Backend server for PostgreSQL dashboard using Express and Node.js",
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "echo backend postinstall"
   },
   "dependencies": {
     "cors": "^2.8.5",
