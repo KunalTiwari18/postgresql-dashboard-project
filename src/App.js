@@ -35,10 +35,9 @@ function App() {
 
     try {
       const response = await axios.post(
-        "https://postgresql-dashboard-project-backend.onrender.com/run-query",
-        { query: pgQuery }
-      );
-
+  "https://postgresql-dashboard-project-backend.onrender.com/run-query",
+  { query: pgQuery }
+);
       setQueryResult(JSON.stringify(response.data, null, 2));
     } catch (err) {
       setQueryResult("❌ Error: " + (err.response?.data?.error || err.message));
