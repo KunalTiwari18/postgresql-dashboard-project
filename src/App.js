@@ -8,7 +8,7 @@ function App() {
   const [queryResult, setQueryResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Simple Oracle → PostgreSQL Translator
+  // Oracle ➜ PostgreSQL Translator
   const handleTranslate = () => {
     if (!oracleQuery.trim()) return alert("Please enter a PL/SQL query!");
 
@@ -23,11 +23,11 @@ function App() {
     query = query.replace(/DECLARE/gi, "DO $$ DECLARE");
     query = query.replace(/END;/gi, "END $$;");
     query = query.replace(/:=/g, ":=");
-    
+
     setTranslatedQuery(query.trim());
   };
 
-  // Run PostgreSQL Query via backend
+  // Run PostgreSQL Query via backend (Render deployment)
   const handleRunQuery = async () => {
     if (!pgQuery.trim()) return alert("Please enter a PostgreSQL query!");
     setLoading(true);
@@ -35,9 +35,9 @@ function App() {
 
     try {
       const response = await axios.post(
-  "https://postgresql-dashboard-project.onrender.com/run-query",
-  { query: pgQuery }
-);
+        "https://postgresql-dashboard.onrender.com/run-query",
+        { query: pgQuery }
+      );
       setQueryResult(JSON.stringify(response.data, null, 2));
     } catch (err) {
       setQueryResult("❌ Error: " + (err.response?.data?.error || err.message));
@@ -60,7 +60,7 @@ function App() {
           </h2>
 
           <p className="text-center text-sm text-green-600 mb-2">
-            🟢 Backend Connected — Running on Express (localhost:5000)
+            🟢 Backend Connected — {`https://postgresql-dashboard.onrender.com`}
           </p>
 
           <textarea
