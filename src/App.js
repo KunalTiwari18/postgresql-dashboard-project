@@ -34,10 +34,11 @@ function App() {
     setQueryResult("");
 
     try {
-     const response = await axios.post(
-  "https://postgresql-dashboard.onrender.com/run-query",
-  { query: pgQuery }
-);
+      const response = await axios.post(
+        "https://postgresql-dashboard-project-backend.onrender.com/run-query",
+        { query: pgQuery }
+      );
+
       setQueryResult(JSON.stringify(response.data, null, 2));
     } catch (err) {
       setQueryResult("❌ Error: " + (err.response?.data?.error || err.message));
@@ -60,7 +61,10 @@ function App() {
           </h2>
 
           <p className="text-center text-sm text-green-600 mb-2">
-            🟢 Backend Connected — {`https://postgresql-dashboard.onrender.com`}
+            🟢 Backend Connected —{" "}
+            <span className="font-mono text-gray-700">
+              postgresql-dashboard-project-backend.onrender.com
+            </span>
           </p>
 
           <textarea
